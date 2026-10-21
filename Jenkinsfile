@@ -3,15 +3,15 @@ pipeline {
     agent any
     
     tools {
-        maven 'Maven-3.9'
-        jdk 'JDK-17'
+        maven 'maven-3.10'
+        jdk 'jdk17'
     }
     
     stages {
         stage('Checkout') {
             steps {
                 echo '拉取代码...'
-                // 实际使用时: git 'https://github.com/your/repo.git'
+                git 'https://github.com/shiguanqiu521/jenkins-demo.git'
             }
         }
         
