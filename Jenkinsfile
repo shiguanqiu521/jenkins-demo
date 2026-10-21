@@ -1,4 +1,3 @@
-// Jenkinsfile（放在项目根目录）
 pipeline {
     agent any
     
@@ -38,6 +37,7 @@ pipeline {
             steps {
                 echo '打包项目...'
                 bat 'mvn package -DskipTests'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, allowEmptyArchive: true
             }
         }
     }
@@ -45,7 +45,6 @@ pipeline {
     post {
         success {
             echo 'Pipeline 执行成功!'
-            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
         failure {
             echo 'Pipeline 执行失败!'
