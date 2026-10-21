@@ -13,7 +13,7 @@ pipeline {
                 echo '拉取代码...'
                 git 'https://github.com/shiguanqiu521/jenkins-demo.git'
             }
-    }
+        }
         
         stage('Compile') {
             steps {
@@ -29,7 +29,6 @@ pipeline {
             }
             post {
                 always {
-                    // 收集测试报告 → 左侧出现 "Test Result"
                     junit 'target/surefire-reports/*.xml'
                 }
             }
@@ -46,8 +45,7 @@ pipeline {
     post {
         success {
             echo 'Pipeline 执行成功!'
-            // 归档 JAR 包 → 左侧出现 "Build Artifacts"
-            archiveArtifacts artifacts: ', fingerprint: true
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
         failure {
             echo 'Pipeline 执行失败!'
