@@ -49,6 +49,7 @@ pipeline {
                   subject: "构建成功：${env.JOB_NAME} #${env.BUILD_NUMBER}",
                   body: "构建成功！\n\n查看：${env.BUILD_URL}",
                   to: "1039945923@qq.com"  // QQ 邮箱
+            )
         }
         failure {
             echo 'Pipeline 执行失败!'
@@ -56,6 +57,7 @@ pipeline {
                    subject: "构建失败：${env.JOB_NAME} #${env.BUILD_NUMBER}",
                    body: "构建失败！\n\n查看日志：${env.BUILD_URL}console",
                    to: "1039945923@qq.com"  // QQ 邮箱
+            )
         }
         always {
             echo '清理工作空间...'
