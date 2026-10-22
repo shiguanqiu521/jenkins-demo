@@ -1,4 +1,3 @@
-// Jenkinsfile（放在项目根目录）
 pipeline {
     agent any
     
@@ -38,7 +37,7 @@ pipeline {
             steps {
                 echo '打包项目...'
                 bat 'mvn package -DskipTests'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, allowEmptyArchive: true
             }
         }
     }
@@ -57,6 +56,10 @@ pipeline {
                    subject: "构建失败：${env.JOB_NAME} #${env.BUILD_NUMBER}",
                    body: "构建失败！\n\n查看日志：${env.BUILD_URL}console",
                    to: "1039945923@qq.com"  // QQ 邮箱
+        }
+        always {
+            echo '清理工作空间...'
+            cleanWs()
         }
     }
 }
